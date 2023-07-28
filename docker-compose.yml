@@ -1,0 +1,10 @@
+services:
+  auth:
+    build:
+      dockerfile: Dockerfile
+      args:
+        - APP_NAME=auth
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
