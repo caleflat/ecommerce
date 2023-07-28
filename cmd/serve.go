@@ -10,6 +10,8 @@ var serveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		serve.Serve()
 	},
+	Short:   "Start the server",
+	Aliases: []string{"s"},
 }
 
 func init() {
