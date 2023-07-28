@@ -2,20 +2,11 @@ FROM golang:1.20-alpine AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod go.sum .
 RUN go mod download
 
 COPY . .
-RUN go build -o /app/bin/ ./cmd/...
 
-FROM alpine:3.14
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/main
 
-WORKDIR /app
-
-COPY --from=builder /app/bin/ /app/bin/
-
-ENTRYPOINT ["/app/bin/"]
-
-ARG APP
-
-CMD ["server", "${APP}"]
+CMD ["/app/main"]
